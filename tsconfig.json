@@ -1,0 +1,13 @@
+{
+  "compileOnSave": true,
+  "compilerOptions": {
+    "alwaysStrict": true,
+    "module": "commonjs",
+    "moduleResolution": "node",
+    "target": "es2017",
+    "outDir": "lib",
+    "rootDir": "src",
+    "lib": ["es2017"]
+  },
+  "exclude": ["node_modules", "lib"]
+}
