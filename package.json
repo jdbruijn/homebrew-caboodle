@@ -1,0 +1,29 @@
+{
+  "name": "homebrew-collection",
+  "version": "0.1.0",
+  "description": "Collection of Homebrew formulae",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/vidavidorra/homebrew-collection.git"
+  },
+  "author": "Jeroen de Bruijn",
+  "license": "GPL-3.0-or-later",
+  "bugs": {
+    "url": "https://github.com/vidavidorra/homebrew-collection/issues"
+  },
+  "homepage": "https://github.com/vidavidorra/homebrew-collection#readme",
+  "husky": {
+    "hooks": {
+      "commit-msg": "commitlint -E HUSKY_GIT_PARAMS"
+    }
+  },
+  "devDependencies": {
+    "@commitlint/cli": "^7.5.2",
+    "@commitlint/config-conventional": "^7.5.0",
+    "husky": "^1.3.1"
+  }
+}
