@@ -4,6 +4,7 @@
   "template": "formula-config/cmake-template.mustache",
   "urlTemplate": "https://github.com/Kitware/CMake/releases/download/v{{{version}}}/cmake-{{{version}}}.tar.gz",
   "versions": [
+    "3.14.0",
     "3.13.4",
     "3.13.3",
     "3.13.2",
