@@ -1,5 +1,6 @@
 {
   "name": "CMake",
+  "package": "cmake",
   "template": "formula-config/cmake-template.mustache",
   "urlTemplate": "https://github.com/Kitware/CMake/releases/download/v{{{version}}}/cmake-{{{version}}}.tar.gz",
   "versions": [
