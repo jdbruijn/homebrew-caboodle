@@ -26,7 +26,8 @@
   },
   "standard-version": {
     "scripts": {
-      "prerelease": "if [[ \"$(git rev-parse --abbrev-ref HEAD)\" != \"master\" ]]; then exit -1; fi"
+      "prerelease": "if [[ \"$(git rev-parse --abbrev-ref HEAD)\" != \"master\" ]]; then exit -1; fi",
+      "postcommit": "git add package.json package-lock.json"
     }
   },
   "devDependencies": {
