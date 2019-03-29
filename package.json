@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "release": "standard-version --skip.commit --skip.tag",
-    "release:ok": "standard-version --sign --skip.bump --skip.changelog",
+    "release:ok": "standard-version --sign --skip.bump --skip.changelog --commit-all",
     "release:publish": "git push --follow-tags",
     "create-formula": "node ./lib/create-formula"
   },
@@ -27,7 +27,7 @@
   "standard-version": {
     "scripts": {
       "prerelease": "if [[ \"$(git rev-parse --abbrev-ref HEAD)\" != \"master\" ]]; then exit -1; fi",
-      "postcommit": "git add package.json package-lock.json"
+      "precommit": "git add package.json package-lock.json"
     }
   },
   "devDependencies": {
