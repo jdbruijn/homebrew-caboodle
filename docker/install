@@ -1,0 +1,79 @@
+#!/bin/bash
+#
+# Build docker image.
+
+################################################################################
+# Configuration
+################################################################################
+# Fail on first error
+set -e
+
+################################################################################
+# Constants
+################################################################################
+# Get the current working directory, i.e. the directory of this file. All
+# credits for this method goes to this guy https://stackoverflow.com/a/246128.
+readonly WORKING_DIRECTORY="$(
+  cd "$(dirname "${BASH_SOURCE[0]}")" >/dev/null 2>&1 && pwd
+)"
+
+################################################################################
+# Global variables
+################################################################################
+
+
+################################################################################
+# Functions
+################################################################################
+########################################
+# Install Homebrew formula.
+#
+# Globals:
+#   None
+# Arguments:
+#   formula_path
+#   formula_name
+# Returns:
+#   None
+########################################
+docker::install_formula() {
+  local formula_path="${1}"
+  local formula_name="${2}"
+
+  echo "Installing ${formula_name} (${formula_path})"
+  # brew install "${formula_path}" --include-test
+  # brew test "${formula_name}"
+}
+
+########################################
+# Install packages/files/stuff in a Docker image.
+#
+# Globals:
+#   WORKING_DIRECTORY
+# Arguments:
+#   None
+# Returns:
+#   None
+########################################
+docker::install() {
+  local formula_directory="$(realpath "${WORKING_DIRECTORY}/../Formula")"
+
+  echo "Searching for formulae in '${formula_directory}'..."
+  formula_paths="$(ls -d -1 ${formula_directory}/*.rb)"
+
+  for formula_path in ${formula_paths}; do
+    formula_basename="$(basename "${formula_path}")"
+    formula_name="${formula_basename%.*}"
+
+    docker::install_formula "${formula_path}" "${formula_name}"
+  done
+}
+
+################################################################################
+# Main
+################################################################################
+main() {
+  docker::install "${@}"
+}
+
+main "${@}"
