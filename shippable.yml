@@ -9,7 +9,8 @@ build:
     - >
       docker build
       --file "./docker/${LINUX_VERSION}.DockerFile"
-      --tag "homebrew-yard:${LINUX_VERSION}";
+      --tag "homebrew-yard:${LINUX_VERSION}"
+      .;
   on_success:
     - >
       ./docker/tag_and_push
