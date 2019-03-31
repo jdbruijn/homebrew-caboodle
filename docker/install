@@ -41,8 +41,8 @@ docker::install_formula() {
   local formula_name="${2}"
 
   echo "Installing ${formula_name} (${formula_path})"
-  # brew install "${formula_path}" --include-test
-  # brew test "${formula_name}"
+  brew install "${formula_path}" --include-test
+  brew test "${formula_name}"
 }
 
 ########################################
