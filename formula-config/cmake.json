@@ -1,6 +1,7 @@
 {
   "name": "CMake",
   "package": "cmake",
+  "aptGetDependencies": ["libcurl4-openssl-dev", "gcc"],
   "template": "formula-config/cmake-template.mustache",
   "urlTemplate": "https://github.com/Kitware/CMake/releases/download/v{{{version}}}/cmake-{{{version}}}.tar.gz",
   "versions": [
