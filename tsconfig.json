@@ -1,13 +1,14 @@
 {
-  "compileOnSave": true,
   "compilerOptions": {
-    "alwaysStrict": true,
+    "target": "es2018",
     "module": "commonjs",
+    "lib": ["es2018"],
+    "declaration": true,
+    "outDir": "./dist",
+    "rootDir": "./src",
     "moduleResolution": "node",
-    "target": "es2017",
-    "outDir": "lib",
-    "rootDir": "src",
-    "lib": ["es2017"]
+    "esModuleInterop": true
   },
-  "exclude": ["node_modules", "lib"]
+  "compileOnSave": true,
+  "exclude": ["node_modules", "dist"]
 }

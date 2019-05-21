@@ -3,7 +3,7 @@ import * as inquirer from 'inquirer';
 import * as fs from 'fs';
 import { promises as fsp } from 'fs';
 import * as mustache from 'mustache';
-import * as download from 'download';
+import download from 'download';
 import * as crypto from 'crypto';
 
 interface Config {

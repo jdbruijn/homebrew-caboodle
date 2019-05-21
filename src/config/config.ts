@@ -1,4 +1,4 @@
-import * as convict from 'convict';
+import convict from 'convict';
 import 'dotenv/config';
 
 const config = convict({
