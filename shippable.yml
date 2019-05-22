@@ -64,7 +64,7 @@ build:
     image_tag: ubuntu1404-master
     pull: true
   ci:
-    - npm init
+    - npm install
     - npm run build
     - npm run formula:create-bottle -- --formula "./Formula/${FORMULA}"
 integrations:
