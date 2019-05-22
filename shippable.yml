@@ -1,5 +1,7 @@
 language: none
 env:
+  global:
+    - secure: IOvRh0QJL2qhf3bTR0TwjONJJrYF+5x72g1UOfi53DS0KfmgZA2xHOeNrdk3F7rtaKL7idqrlTHOeoAZOBXugOsS8ITFl5ALaxmWRvCn1EW/BxTO9nDnOUK3arMrB0BhVJaeIH+fgixbn487TK7Ey7jKvyAlUteLnwyP8fffDbOTg6oconrrf4xDDBenymONT+aAnoj4qIMT38IDAc+9D4npnTZvTcATy6zJvbhhRYHI0O9tlqagqakzytQNTvY79UZQ2rX4PIh5Xyh8UzYXoJvyAUlbWDroOkWsRVKztu5amDF3XlRBpSUDU7Uz2Ap6bRH2XIVGGBrUuo6i/dd5uA==
   matrix:
     - FORMULA: cmake@3.1.0.rb
     - FORMULA: cmake@3.1.1.rb
