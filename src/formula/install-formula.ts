@@ -1,5 +1,7 @@
+import AWS from 'aws-sdk';
 import chalk from 'chalk';
 import * as fs from 'fs';
+import cconfig from '../config/config';
 import { promises as fsp } from 'fs';
 import * as yargs from 'yargs';
 import * as path from 'path';
@@ -40,6 +42,7 @@ try {
 
   const formulaName = path.parse(absoluteFormulaPath).name;
   const formulaPackage = formulaName.split('@')[0];
+  const formulaVersion = formulaName.split('@')[1];
   const formulaConfigPath = path.join(
     formulaConfigDir,
     formulaPackage + '.json'
@@ -50,6 +53,7 @@ try {
     formulaConfigDir,
     formulaName,
     formulaPackage,
+    formulaVersion,
     formulaConfigPath
   );
 
@@ -81,6 +85,50 @@ try {
     if (result.code !== 0) {
       throw new Error(`Command '${command}' returned ${result.code}`);
     }
+  });
+
+  const outputFiles = [
+    `${formulaName}--${formulaVersion}.x86_64_linux.bottle.json`,
+    `${formulaName}--${formulaVersion}.x86_64_linux.bottle.tar.gz`,
+  ];
+  outputFiles.forEach(outputFile => {
+    if (!fs.existsSync(outputFile)) {
+      throw new Error(
+        `Expected output file '${outputFile}' is not present on the filesystem`
+      );
+    }
+  });
+
+  console.log(outputFiles);
+  // Upload output files...
+  console.log(
+    chalk.blue('Uploading output files'),
+    cconfig.get('aws.bucketName')
+  );
+  const s3 = new AWS.S3({
+    apiVersion: '2006-03-01',
+    credentials: {
+      accessKeyId: cconfig.get('aws.accessKeyId'),
+      secretAccessKey: cconfig.get('aws.secretAccessKey'),
+    },
+  });
+
+  outputFiles.forEach(file => {
+    fs.readFile(file, (err, data) => {
+      if (err) {
+        throw err;
+      }
+
+      const objectParams = {
+        // ACL: 'public',
+        Bucket: cconfig.get('aws.bucketName'),
+        Key: file,
+        Body: data,
+      };
+      s3.putObject(objectParams, data => {
+        console.log(chalk.green(`Yay! Uploaded '${file}' to S3`), data);
+      });
+    });
   });
 } catch (error) {
   console.log(chalk.red(error));

@@ -58,9 +58,8 @@ env:
     - FORMULA: cmake@3.14.0.rb
 build:
   ci:
-    - >
-      docker build --file "./docker/ubuntu1804.DockerFile" --tag
-      "homebrew-yard:${LINUX_VERSION}" --build-arg FORMULA_NAME="${FORMULA}" .;
+    - npm run build
+    - npm run formula:create-bottle -- --formula "./Formula/${FORMULA}"
 integrations:
   notifications:
     - integrationName: email

@@ -13,7 +13,8 @@
     "release:ok": "standard-version --sign --skip.bump --skip.changelog --commit-all",
     "release:publish": "git push --follow-tags",
     "create-formula": "node ./lib/create-formula",
-    "update-ci-builds": "node ./lib/update-ci-builds"
+    "update-ci-builds": "node ./lib/update-ci-builds",
+    "formula:create-bottle": "node ./dist/formula/install-formula"
   },
   "repository": {
     "type": "git",
