@@ -59,6 +59,10 @@ env:
     - FORMULA: cmake@3.13.4.rb
     - FORMULA: cmake@3.14.0.rb
 build:
+  pre_ci_boot:
+    image_name: vidavidorra/docker-linux
+    image_tag: ubuntu1804-master
+    pull: true
   ci:
     - npm run build
     - npm run formula:create-bottle -- --formula "./Formula/${FORMULA}"
