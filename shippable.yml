@@ -61,7 +61,7 @@ env:
 build:
   pre_ci_boot:
     image_name: vidavidorra/docker-linux
-    image_tag: ubuntu1804-master
+    image_tag: ubuntu1404-master
     pull: true
   ci:
     - npm run build
