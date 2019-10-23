@@ -36,6 +36,7 @@ class CmakeAT3130 < Formula
     ENV["LC_ALL"] = "en_US.UTF-8"
 
     system "./bootstrap", *args, "--", "-DCMAKE_BUILD_TYPE=Release"
+    system "echo test"
     system "make"
     system "make", "install"
 
