@@ -1,3 +1,1 @@
-import * as formulaConfig from './config';
-
-export { formulaConfig };
+export * from './config';
