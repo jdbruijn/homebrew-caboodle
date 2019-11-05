@@ -4,10 +4,11 @@ class CmakeAT{{{formulaAt}}} < Formula
   url "{{{url}}}"
   sha256 "{{{sha256}}}"
   head "https://cmake.org/cmake.git"
-
-  depends_on "sphinx-doc" => :build
+  version "{{{version}}}"
 
   keg_only :versioned_formula
+
+  depends_on "sphinx-doc" => :build
 
   # The completions were removed because of problems with system bash
 
