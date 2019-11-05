@@ -1,5 +1,5 @@
-import Ajv from 'ajv';
 import * as fs from 'fs';
+import Ajv from 'ajv';
 import chalk from 'chalk';
 import stringify from 'json-stringify-pretty-compact';
 
