@@ -5,12 +5,18 @@ export const config = convict({
   ci: {
     workflowPath: {
       format: String,
-      default: './.github/workflow.yml'
-    }
+      default: './.github/workflow.yml',
+    },
   },
-  formulaPath: {
-    format: String,
-    default: './Formula',
+  formula: {
+    configPath: {
+      format: String,
+      default: './formula-config',
+    },
+    path: {
+      format: String,
+      default: './Formula',
+    },
   },
   aws: {
     accessKeyId: {
