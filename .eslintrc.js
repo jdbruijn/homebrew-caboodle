@@ -7,6 +7,7 @@ module.exports = {
   parser: '@typescript-eslint/parser',
   plugins: ['@typescript-eslint', 'json'],
   parserOptions: {
+    ecmaVersion: 2018,
     sourceType: 'module',
     ecmaFeatures: {
       jsx: true,
@@ -18,5 +19,6 @@ module.exports = {
   },
   rules: {
     'no-fallthrough': 'error',
+    'sort-imports': 'warn',
   },
 };
