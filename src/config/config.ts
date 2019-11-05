@@ -1,7 +1,17 @@
 import convict from 'convict';
 import 'dotenv/config';
 
-const config = convict({
+export const config = convict({
+  ci: {
+    workflowPath: {
+      format: String,
+      default: './.github/workflow.yml'
+    }
+  },
+  formulaPath: {
+    format: String,
+    default: './Formula',
+  },
   aws: {
     accessKeyId: {
       format: String,
@@ -29,5 +39,3 @@ const config = convict({
 });
 
 config.validate({ allowed: 'strict' });
-
-export default config;
