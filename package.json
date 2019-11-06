@@ -14,7 +14,8 @@
     "release:publish": "git push --follow-tags",
     "create-formula": "node ./lib/create-formula",
     "update-ci-builds": "node ./lib/update-ci-builds",
-    "formula:create-bottle": "node ./dist/formula/install-formula"
+    "formula:create-bottle": "node ./dist/formula/install-formula",
+    "formula:bottle": "node ./dist/formula/bottle"
   },
   "repository": {
     "type": "git",
