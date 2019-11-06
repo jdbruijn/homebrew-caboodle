@@ -6,22 +6,24 @@ import yargs from 'yargs';
 
 class Bottle {
   private readonly formulaPath: string;
-  private systemCommands: string[];
+  private readonly formula: Formula;
+  private systemCommands: string[] = [];
 
   constructor(formulaPath: string) {
     this.formulaPath = formulaPath;
+    this.formula = new Formula(this.formulaPath);
+
     this.InstallAndTest();
+    this.Bottle();
     this.ExecuteCommands();
   }
 
   private InstallAndTest(): void {
-    const formula = new Formula(this.formulaPath);
-
-    if (formula.Config().HasAptGetDependencies()) {
+    if (this.formula.Config().HasAptGetDependencies()) {
       const commands = [];
       commands.push('apt-get update');
       commands.push(
-        `apt-get install -y --no-install-recommends ${formula
+        `apt-get install -y --no-install-recommends ${this.formula
           .Config()
           .config.aptGetDependencies.join(' ')}`
       );
@@ -30,10 +32,25 @@ class Bottle {
       this.systemCommands.push(commands.join(' && '));
     }
 
+    const installArguments = [
+      '--include-test',
+      '--build-bottle',
+      this.formula.path,
+    ];
     this.systemCommands.push(
-      `brew install ${formula.path} --include-test --build-bottle`
+      `HOMEBREW_NO_AUTO_UPDATE=1 brew install ${installArguments.join(' ')}`
     );
-    this.systemCommands.push(`brew test ${formula.name}`);
+    this.systemCommands.push(`brew test ${this.formula.name}`);
+  }
+
+  private Bottle(): void {
+    const bottleArguments = [
+      '--json',
+      '--force-core-tap',
+      '--root-url="https://homebrew-yard.vidavidorra.com"',
+      this.formula.name,
+    ];
+    this.systemCommands.push(`brew bottle ${bottleArguments.join(' ')}`);
   }
 
   private ExecuteCommands(): void {
@@ -82,7 +99,7 @@ class Cli {
   }
 
   private Run(): void {
-    const bottle = new Bottle(this.formulaPath);
+    new Bottle(this.formulaPath);
   }
 }
 
