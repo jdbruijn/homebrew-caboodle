@@ -13,9 +13,9 @@ export interface Config {
 }
 
 export class FormulaConfig {
-  private path: string;
-  private config: Config;
-  private schema = {
+  private readonly path: string;
+  public readonly config: Config;
+  private readonly schema = {
     type: 'object',
     additionalProperties: false,
     required: ['name', 'package', 'templatePath', 'urlTemplate', 'versions'],
@@ -43,20 +43,19 @@ export class FormulaConfig {
 
   public constructor(path: string) {
     this.path = path;
+    this.config = this.Read();
   }
 
-  public Get(): Config {
-    if (!this.config) {
-      this.Read();
-    }
-
-    return this.config;
+  public HasAptGetDependencies(): boolean {
+    return (
+      this.config.aptGetDependencies !== undefined &&
+      this.config.aptGetDependencies.length > 0
+    );
   }
 
-  private Read(): void {
+  private Read(): Config {
     const ajv = new Ajv({ allErrors: true });
     const validate = ajv.compile(this.schema);
-
     const data = fs.readFileSync(this.path, 'utf8');
     const config = JSON.parse(data);
 
@@ -65,6 +64,6 @@ export class FormulaConfig {
       throw new Error('Invalid formula config.');
     }
 
-    this.config = config;
+    return config;
   }
 }
