@@ -1,0 +1,13 @@
+name: Lint commit messages
+on:
+  push:
+    branches: sqone
+
+jobs:
+  commitlint:
+    runs-on: ubuntu-latest
+    env:
+      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+    steps:
+      - uses: actions/checkout@v1
+      - uses: wagoid/commitlint-github-action@v1.2.1
