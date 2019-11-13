@@ -15,6 +15,7 @@ class Bottle {
 
     this.InstallAndTest();
     this.Bottle();
+    this.RemoveDoubleDashFromFiles();
     this.ExecuteCommands();
   }
 
@@ -46,6 +47,21 @@ class Bottle {
   private Bottle(): void {
     const bottleArguments = ['--force-core-tap', this.formula.name];
     this.systemCommands.push(`brew bottle ${bottleArguments.join(' ')}`);
+  }
+
+  /**
+   * See the following conversation on GitHub for information on the double dash
+   * in bottle filenames.
+   * https://github.com/Homebrew/brew/commit/d33241bc11054af79c45bd355bf58c7304e18882
+   */
+  private RemoveDoubleDashFromFiles(): void {
+    const bottleFile = `${
+      this.formula.name
+    }--${this.formula.Version()}.x86_64_linux.bottle.tar.gz`;
+
+    this.systemCommands.push(
+      `mv ${bottleFile} ${bottleFile.replace('--', '-')}`
+    );
   }
 
   private ExecuteCommands(): void {
