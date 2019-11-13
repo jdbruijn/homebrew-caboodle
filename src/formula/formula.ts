@@ -72,6 +72,10 @@ export class Formula {
     return this.config;
   }
 
+  public Version(): string {
+    return this.version;
+  }
+
   private Read(): void {
     this.content = fs.readFileSync(this.path, 'utf8');
   }
