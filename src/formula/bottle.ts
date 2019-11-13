@@ -44,12 +44,7 @@ class Bottle {
   }
 
   private Bottle(): void {
-    const bottleArguments = [
-      '--json',
-      '--force-core-tap',
-      '--root-url="https://homebrew-yard.vidavidorra.com"',
-      this.formula.name,
-    ];
+    const bottleArguments = ['--force-core-tap', this.formula.name];
     this.systemCommands.push(`brew bottle ${bottleArguments.join(' ')}`);
   }
 
