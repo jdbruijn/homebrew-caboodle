@@ -1,7 +1,5 @@
 name: Lint commit messages
-on:
-  push:
-    branches: sqone
+on: push
 
 jobs:
   commitlint:
