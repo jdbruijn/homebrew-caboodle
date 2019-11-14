@@ -4,6 +4,7 @@
     "module": "commonjs",
     "lib": ["es2018"],
     "declaration": true,
+    "resolveJsonModule": true,
     "outDir": "dist",
     "moduleResolution": "node",
     "esModuleInterop": true

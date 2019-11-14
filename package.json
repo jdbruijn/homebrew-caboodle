@@ -12,10 +12,8 @@
     "release": "standard-version --skip.commit --skip.tag",
     "release:ok": "standard-version --sign --skip.bump --skip.changelog --commit-all",
     "release:publish": "git push --follow-tags",
-    "create-formula": "node ./lib/create-formula",
-    "update-ci-builds": "node ./lib/update-ci-builds",
-    "formula:create-bottle": "node ./dist/formula/install-formula",
-    "formula:bottle": "node ./dist/formula/bottle"
+    "formula:bottle": "node ./dist/src/formula/bottle",
+    "formulae:create": "node ./dist/src/formulae/create"
   },
   "repository": {
     "type": "git",
