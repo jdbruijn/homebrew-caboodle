@@ -4,10 +4,11 @@ class CmakeAT3113 < Formula
   url "https://github.com/Kitware/CMake/releases/download/v3.11.3/cmake-3.11.3.tar.gz"
   sha256 "287135b6beb7ffc1ccd02707271080bbf14c21d80c067ae2c0040e5f3508c39a"
   head "https://cmake.org/cmake.git"
-
-  depends_on "sphinx-doc" => :build
+  version "0.1.0"
 
   keg_only :versioned_formula
+
+  depends_on "sphinx-doc" => :build
 
   # The completions were removed because of problems with system bash
 

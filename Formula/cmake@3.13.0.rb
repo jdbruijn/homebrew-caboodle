@@ -4,10 +4,11 @@ class CmakeAT3130 < Formula
   url "https://github.com/Kitware/CMake/releases/download/v3.13.0/cmake-3.13.0.tar.gz"
   sha256 "4058b2f1a53c026564e8936698d56c3b352d90df067b195cb749a97a3d273c90"
   head "https://cmake.org/cmake.git"
-
-  depends_on "sphinx-doc" => :build
+  version "0.1.0"
 
   keg_only :versioned_formula
+
+  depends_on "sphinx-doc" => :build
 
   # The completions were removed because of problems with system bash
 
@@ -36,7 +37,6 @@ class CmakeAT3130 < Formula
     ENV["LC_ALL"] = "en_US.UTF-8"
 
     system "./bootstrap", *args, "--", "-DCMAKE_BUILD_TYPE=Release"
-    system "echo test"
     system "make"
     system "make", "install"
 

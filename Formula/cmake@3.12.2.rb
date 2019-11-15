@@ -4,10 +4,11 @@ class CmakeAT3122 < Formula
   url "https://github.com/Kitware/CMake/releases/download/v3.12.2/cmake-3.12.2.tar.gz"
   sha256 "0f97485799e51a7070cc11494f3e02349b0fc3a24cc12b082e737bf67a0581a4"
   head "https://cmake.org/cmake.git"
-
-  depends_on "sphinx-doc" => :build
+  version "0.1.0"
 
   keg_only :versioned_formula
+
+  depends_on "sphinx-doc" => :build
 
   # The completions were removed because of problems with system bash
 
