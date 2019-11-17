@@ -1,6 +1,8 @@
 import { Formula } from '.';
 import chalk from 'chalk';
+import { config } from '..';
 import fs from 'fs';
+import path from 'path';
 import shell from 'shelljs';
 import yargs from 'yargs';
 
@@ -9,8 +11,9 @@ class Bottle {
   private readonly formula: Formula;
   private systemCommands: string[] = [];
 
-  constructor(formulaPath: string) {
-    this.formulaPath = formulaPath;
+  constructor(formula: string) {
+    const formulaPath = config.get('formula.path');
+    this.formulaPath = path.join(formulaPath, `${formula}.rb`);
     this.formula = new Formula(this.formulaPath);
 
     this.InstallAndTest();
@@ -80,7 +83,6 @@ class Cli {
 
   constructor() {
     this.Parse();
-    this.ValidateFormulaPathExists();
 
     this.Run();
   }
@@ -97,16 +99,6 @@ class Cli {
       .help().argv;
 
     this.formulaPath = argv.path as string;
-  }
-
-  private ValidateFormulaPathExists(): void {
-    if (
-      !fs.existsSync(this.formulaPath) ||
-      !fs.statSync(this.formulaPath).isFile()
-    ) {
-      console.log(chalk.red(`File '${this.formulaPath}' doesn't exist.`));
-      process.exit(1);
-    }
   }
 
   private Run(): void {
