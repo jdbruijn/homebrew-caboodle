@@ -10,13 +10,16 @@ jobs:
         formula: [cmake@3.1.0, cmake@3.14.0]
     steps:
       - uses: actions/checkout@v1
-      - name Build
+      - name: Build
         run: |
           npm ci
           npm run build
-      - name Bottle ${{ matrix.formula }}
+      - name: Bottle
         run: |
           npm run formula:bottle ${{ matrix.formula }}
+      - name: Upload
+        run: |
+          echo "Upload formula"
   create-containter:
     needs: [bottle]
     runs-on: ubuntu-latest
