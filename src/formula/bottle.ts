@@ -12,9 +12,7 @@ class Bottle {
   private systemCommands: string[] = [];
 
   constructor(formula: string) {
-    const formulaPath = config.get('formula.path');
-    this.formulaPath = path.join(formulaPath, `${formula}.rb`);
-    this.formula = new Formula(this.formulaPath);
+    this.formula = new Formula(formula);
 
     this.InstallAndTest();
     this.Bottle();
