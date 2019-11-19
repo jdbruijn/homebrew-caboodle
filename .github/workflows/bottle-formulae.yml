@@ -5,6 +5,9 @@ jobs:
   bottle:
     runs-on: ubuntu-latest
     container: vidavidorra/docker-linux:ubuntu1804-master
+    env:
+      AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+      AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
     strategy:
       matrix:
         formula: [cmake@3.1.0, cmake@3.14.0]
@@ -19,7 +22,7 @@ jobs:
           npm run formula:bottle ${{ matrix.formula }}
       - name: Upload
         run: |
-          echo "Upload formula"
+          npm run formula:upload ${{ matrix.formula }} $GITHUB_SHA
   create-containter:
     needs: [bottle]
     runs-on: ubuntu-latest

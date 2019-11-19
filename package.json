@@ -13,6 +13,7 @@
     "release:ok": "standard-version --sign --skip.bump --skip.changelog --commit-all",
     "release:publish": "git push --follow-tags",
     "formula:bottle": "node ./dist/src/formula/bottle",
+    "formula:upload": "node ./dist/src/formula/upload",
     "formulae:create": "node ./dist/src/formulae/create"
   },
   "repository": {
