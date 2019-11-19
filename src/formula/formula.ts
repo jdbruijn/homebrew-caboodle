@@ -21,8 +21,9 @@ export class Formula {
   private content: string;
   private hasChanged = false;
 
-  public constructor(formulaPath: string) {
-    this.path = formulaPath;
+  public constructor(formula: string) {
+    const formulaPath = config.get('formula.path');
+    this.path = path.join(formulaPath, `${formula}.rb`);
 
     this.Read();
     this.ParseInformation();
@@ -74,6 +75,10 @@ export class Formula {
 
   public Version(): string {
     return this.version;
+  }
+
+  public BottleFile(platform: 'x86_64_linux'): string {
+    return `${this.name}-${this.Version()}.${platform}.bottle.tar.gz`;
   }
 
   private Read(): void {

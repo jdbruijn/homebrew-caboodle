@@ -1,11 +1,55 @@
-import { config, Formula } from '..';
+import { Formula, config } from '..';
 import AWS from 'aws-sdk';
 import fs from 'fs';
 import path from 'path';
 import yargs from 'yargs';
 
+class Upload {
+  private formula: Formula;
+  private hash: string;
+  private bottlePath: string;
+  private upstreamPath: string;
+  private awsBucket: string;
+
+  constructor(formula: string, commitHash: string) {
+    this.formula = new Formula(formula);
+    this.hash = this.StandardiseHash(commitHash);
+    this.bottlePath = this.formula.BottleFile('x86_64_linux');
+    this.upstreamPath = path.join(this.hash, this.bottlePath);
+
+    this.awsBucket = config.get('aws.bucketName');
+  }
+
+  public Upload(): void {
+    const data = fs.readFileSync(this.bottlePath);
+
+    const objectParams = {
+      Bucket: this.awsBucket,
+      Key: this.upstreamPath,
+      Body: data,
+    };
+
+    const s3 = new AWS.S3({
+      apiVersion: '2006-03-01',
+      credentials: {
+        accessKeyId: config.get('aws.accessKeyId'),
+        secretAccessKey: config.get('aws.secretAccessKey'),
+      },
+    });
+
+    console.log(`Uploading '${this.bottlePath}' to AWS S3`);
+    s3.putObject(objectParams, () => {
+      console.log(`'${this.bottlePath} uploaded to ${this.upstreamPath}`);
+    });
+  }
+
+  private StandardiseHash(hash: string): string {
+    return hash.substring(0, 12);
+  }
+}
+
 class Cli {
-  private formulaPath: string;
+  private formula: string;
   private hash: string;
 
   constructor() {
@@ -14,7 +58,7 @@ class Cli {
     this.Run();
   }
 
-  Parse(): void {
+  private Parse(): void {
     const argv = yargs
       .command('$0 <formula> <hash>', 'Upload a formula to ASW S3', yargs => {
         yargs.positional('path', {
@@ -29,45 +73,13 @@ class Cli {
       .version(false)
       .help().argv;
 
-    const formula = argv.formula as string;
-    const formulaPath = config.get('formula.path');
-    this.formulaPath = path.join(formulaPath, `${formula}.rb`);
-    this.hash = (argv.hash as string).substring(0, 12);
-
-    console.log(`Hash: '${this.hash}`);
+    this.formula = argv.formula as string;
+    this.hash = argv.hash as string;
   }
 
   private Run(): void {
-    const formula = new Formula(this.formulaPath);
-    const bottleFile = `${
-      formula.name
-    }-${formula.Version()}.x86_64_linux.bottle.tar.gz`;
-
-    console.log(`Uploading ${bottleFile}`);
-    try {
-      const s3 = new AWS.S3({
-        apiVersion: '2006-03-01',
-        credentials: {
-          accessKeyId: config.get('aws.accessKeyId'),
-          secretAccessKey: config.get('aws.secretAccessKey'),
-        },
-      });
-
-      const data = fs.readFileSync(bottleFile);
-      const file = path.join(this.hash, bottleFile);
-
-      const objectParams = {
-        Bucket: config.get('aws.bucketName'),
-        Key: file,
-        Body: data,
-      };
-      console.log('upload');
-      s3.putObject(objectParams, data => {
-        console.log(`Uploaded '${file}' to S3`);
-      });
-    } catch (error) {
-      console.log(error);
-    }
+    const upload = new Upload(this.formula, this.hash);
+    upload.Upload();
   }
 }
 
