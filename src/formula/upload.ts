@@ -54,7 +54,7 @@ class Cli {
       });
 
       const data = fs.readFileSync(bottleFile);
-      const file = path.join('d1e04fd2b', bottleFile);
+      const file = path.join(this.hash, bottleFile);
 
       const objectParams = {
         Bucket: config.get('aws.bucketName'),
@@ -63,7 +63,7 @@ class Cli {
       };
       console.log('upload');
       s3.putObject(objectParams, data => {
-        console.log(`Uploaded '${file}' to S3`, data);
+        console.log(`Uploaded '${file}' to S3`);
       });
     } catch (error) {
       console.log(error);
