@@ -33,13 +33,16 @@ export const config = convict({
     },
     region: {
       format: String,
-      env: 'AWS_REGION',
       default: 'eu-central-1',
     },
     bucketName: {
       format: String,
-      env: 'AWS_BUCKET_NAME',
       default: 'homebrew-pc',
+    },
+    directoryPrefix: {
+      format: String,
+      env: 'AWS_DIRECTORY_PREFIX',
+      default: 'develop',
     },
   },
 });

@@ -5,19 +5,24 @@ import path from 'path';
 import yargs from 'yargs';
 
 class Upload {
+  private awsBucket: string;
+  private awsDirectoryPrefix: string;
   private formula: Formula;
   private hash: string;
   private bottlePath: string;
   private upstreamPath: string;
-  private awsBucket: string;
 
   constructor(formula: string, commitHash: string) {
+    this.awsBucket = config.get('aws.bucketName');
+    this.awsDirectoryPrefix = config.get('aws.directoryPrefix');
     this.formula = new Formula(formula);
     this.hash = this.StandardiseHash(commitHash);
     this.bottlePath = this.formula.BottleFile('x86_64_linux');
-    this.upstreamPath = path.join(this.hash, this.bottlePath);
-
-    this.awsBucket = config.get('aws.bucketName');
+    this.upstreamPath = path.join(
+      this.awsDirectoryPrefix,
+      this.hash,
+      this.bottlePath
+    );
   }
 
   public Upload(): void {
