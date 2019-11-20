@@ -12,6 +12,7 @@
     "release": "standard-version --skip.commit --skip.tag",
     "release:ok": "standard-version --sign --skip.bump --skip.changelog --commit-all",
     "release:publish": "git push --follow-tags",
+    "update-workflow": "node ./dist/src/update-workflow",
     "formula:bottle": "node ./dist/src/formula/bottle",
     "formula:upload": "node ./dist/src/formula/upload",
     "formulae:create": "node ./dist/src/formulae/create"
