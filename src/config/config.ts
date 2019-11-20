@@ -2,10 +2,10 @@ import convict from 'convict';
 import 'dotenv/config';
 
 export const config = convict({
-  ci: {
-    workflowPath: {
+  workflow: {
+    path: {
       format: String,
-      default: './.github/workflow.yml',
+      default: './.github/workflows/bottle-formulae.yml',
     },
   },
   formula: {
