@@ -26,12 +26,6 @@
     "url": "https://github.com/vidavidorra/homebrew-collection/issues"
   },
   "homepage": "https://github.com/vidavidorra/homebrew-collection#readme",
-  "husky": {
-    "hooks": {
-      "pre-commit": "lint-staged",
-      "commit-msg": "commitlint -E HUSKY_GIT_PARAMS"
-    }
-  },
   "standard-version": {
     "scripts": {
       "prerelease": "if [[ \"$(git rev-parse --abbrev-ref HEAD)\" != \"master\" ]]; then exit -1; fi",
