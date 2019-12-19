@@ -1,5 +1,5 @@
 name: Lint commit messages
-on: push
+on: [push, pull_request]
 
 jobs:
   commitlint:
@@ -7,5 +7,7 @@ jobs:
     env:
       GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
     steps:
-      - uses: actions/checkout@v1
-      - uses: wagoid/commitlint-github-action@v1.2.2
+      - name: Checkout
+        uses: actions/checkout@v1
+      - name: Lint commit messages
+        uses: wagoid/commitlint-github-action@v1.3.1
