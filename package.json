@@ -4,14 +4,15 @@
   "description": "Collection of Homebrew formulae",
   "main": "index.js",
   "scripts": {
-    "build": "tsc",
-    "format": "prettier \"**/*.{ts,tsx,js,jsx,json,md}\" --write",
-    "format:package": "prettier --ignore-path '' package*.json --write",
-    "prettier": "prettier \"**/*.{js,ts,json,md}\"",
     "lint": "eslint --ignore-path .prettierignore --ext .ts,.tsx,.js,.jsx,.json .",
-    "release": "standard-version --skip.commit --skip.tag",
-    "release:ok": "standard-version --sign --skip.bump --skip.changelog --commit-all",
-    "release:publish": "git push --follow-tags",
+    "format": "concurrently \"npm:format:default\"",
+    "format:default": "prettier --write \"**/*.{js,jsx,vue,ts,css,less,scss,html,htm,json,md,markdown,yml,yaml}\"",
+    "format-file:default": "prettier --write",
+    "release:changelog": "standard-version --dry-run --skip.commit=true --skip.tag=true",
+    "release:commit": "git commit --allow-empty -m \"chore(release): trigger release process [ci release]\"",
+    "release:message": "chalk -t \"Run {green.bold git push} to publish the release or {red.bold git reset HEAD^} to undo the release.\"",
+    "release": "run-s release:changelog release:commit release:message",
+    "build": "tsc",
     "update-workflow": "node ./dist/src/update-workflow",
     "formula:bottle": "node ./dist/src/formula/bottle",
     "formula:upload": "node ./dist/src/formula/upload",
@@ -19,29 +20,15 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/vidavidorra/homebrew-collection.git"
+    "url": "git+https://github.com/vidavidorra/homebrew-yard.git"
   },
   "author": "Jeroen de Bruijn",
   "license": "GPL-3.0-or-later",
   "bugs": {
-    "url": "https://github.com/vidavidorra/homebrew-collection/issues"
+    "url": "https://github.com/vidavidorra/homebrew-yard/issues"
   },
-  "homepage": "https://github.com/vidavidorra/homebrew-collection#readme",
-  "standard-version": {
-    "scripts": {
-      "prerelease": "if [[ \"$(git rev-parse --abbrev-ref HEAD)\" != \"master\" ]]; then exit -1; fi",
-      "precommit": "git add package.json package-lock.json"
-    }
-  },
-  "lint-staged": {
-    "*.{ts,tsx,js,jsx,json}": [
-      "npm run lint",
-      "npm run format"
-    ],
-    "*.{md}": [
-      "npm run format"
-    ]
-  },
+  "homepage": "https://github.com/vidavidorra/homebrew-yard#readme",
+  "dependencies": {},
   "devDependencies": {
     "@commitlint/cli": "^8.2.0",
     "@commitlint/config-conventional": "^8.2.0",
@@ -59,7 +46,9 @@
     "alphanum-sort": "^1.0.2",
     "aws-sdk": "^2.576.0",
     "chalk": "^2.4.2",
+    "chalk-cli": "^4.1.0",
     "chalks": "^0.1.5",
+    "concurrently": "^5.0.2",
     "convict": "^5.2.0",
     "dotenv": "^8.2.0",
     "download": "^7.1.0",
@@ -73,12 +62,12 @@
     "json-stringify-pretty-compact": "^2.0.0",
     "lint-staged": "^9.4.3",
     "mustache": "^3.1.0",
+    "npm-run-all": "^4.1.5",
     "prettier": "^1.19.1",
     "request": "^2.88.0",
     "shelljs": "^0.8.3",
     "standard-version": "^7.0.1",
     "typescript": "^3.7.2",
     "yargs": "^15.0.2"
-  },
-  "dependencies": {}
+  }
 }
