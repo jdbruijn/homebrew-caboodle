@@ -1,0 +1,14 @@
+class {{{name}}} < Formula
+  desc "GNU Arm Embedded Toolchain"
+  homepage "https://developer.arm.com/tools-and-software/open-source-software/developer-tools/gnu-toolchain/gnu-rm"
+  url "{{{url}}}"
+  sha256 "{{{sha256}}}"
+  version "{{{version}}}"
+
+  keg_only :versioned_formula
+
+  def install
+    (prefix/"gcc").install Dir["./*"]
+    Dir.glob(prefix/"gcc/bin/*") { |file| bin.install_symlink file }
+  end
+end
