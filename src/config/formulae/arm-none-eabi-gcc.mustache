@@ -6,6 +6,7 @@ class {{{name}}} < Formula
   version "{{{version}}}"
 
   keg_only :versioned_formula
+  bottle :unneeded
 
   def install
     (prefix/"gcc").install Dir["./*"]
