@@ -21,7 +21,7 @@ class Upload {
     this.upstreamPath = path.join(
       this.awsDirectoryPrefix,
       this.hash,
-      this.bottlePath
+      this.bottlePath,
     );
   }
 
@@ -65,7 +65,7 @@ class Cli {
 
   private Parse(): void {
     const argv = yargs
-      .command('$0 <formula> <hash>', 'Upload a formula to ASW S3', yargs => {
+      .command('$0 <formula> <hash>', 'Upload a formula to ASW S3', (yargs) => {
         yargs.positional('path', {
           describe: 'Name of the formula to upload',
           type: 'string',

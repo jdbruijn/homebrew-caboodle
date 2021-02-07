@@ -1,6 +1,8 @@
 import fs from 'fs';
 import path from 'path';
 
+type Versions = ReadonlySet<string>;
+
 abstract class Formula {
   public readonly templatePath: string;
   constructor(
@@ -17,7 +19,7 @@ abstract class Formula {
     this.validateTemplatePath();
   }
 
-  abstract versions(): string[];
+  abstract versions(): ReadonlySet<string>;
   abstract url(version: string): string;
 
   private validateTemplatePath(): void {
@@ -32,10 +34,11 @@ abstract class Formula {
   }
 
   protected validateVersion(version: string): void {
-    if (!this.versions().includes(version)) {
+    if (!this.versions().has(version)) {
       throw new Error(`Version '${version}' not in 'versions()'`);
     }
   }
 }
 
 export default Formula;
+export { Formula, Versions };

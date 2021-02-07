@@ -1,7 +1,7 @@
-import Formula from '../formula';
+import { Formula, Versions } from '../formula';
 
 class CMake extends Formula {
-  private readonly _versions: Readonly<string[]> = [
+  private _versions: Versions = new Set([
     '3.1.0',
     '3.1.1',
     '3.1.2',
@@ -71,7 +71,7 @@ class CMake extends Formula {
     '3.15.3',
     '3.15.4',
     '3.15.5',
-  ];
+  ]);
 
   constructor() {
     super('CMake', 'cmake', 'cmake-template.mustache', [
@@ -80,8 +80,8 @@ class CMake extends Formula {
     ]);
   }
 
-  versions(): string[] {
-    return [...this._versions];
+  versions(): Versions {
+    return this._versions;
   }
 
   url(version: string): string {

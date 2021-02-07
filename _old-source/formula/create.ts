@@ -48,7 +48,7 @@ export class FormulaCreate {
     const formulaPath = config.get('formula.path');
     const destination = path.join(
       formulaPath,
-      `${this.config.package}@${this.version}.rb`
+      `${this.config.package}@${this.version}.rb`,
     );
     fs.writeFileSync(destination, formulaContent, 'utf8');
   }

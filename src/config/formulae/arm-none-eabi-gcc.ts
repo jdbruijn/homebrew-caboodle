@@ -34,7 +34,7 @@ class ArmNoneEabiGcc extends Formula {
     );
   }
 
-  versions(): string[] {
+  versions(): ReadonlySet<string> {
     return [...this._versions.keys()];
   }
 

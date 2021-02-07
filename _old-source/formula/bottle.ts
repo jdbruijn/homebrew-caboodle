@@ -27,7 +27,7 @@ class Bottle {
       commands.push(
         `apt-get install -y --no-install-recommends ${this.formula
           .Config()
-          .config.aptGetDependencies.join(' ')}`
+          .config.aptGetDependencies.join(' ')}`,
       );
       commands.push('apt-get clean');
       commands.push('rm -rf /var/lib/apt/lists/*');
@@ -40,7 +40,7 @@ class Bottle {
       this.formula.path,
     ];
     this.systemCommands.push(
-      `HOMEBREW_NO_AUTO_UPDATE=1 brew install ${installArguments.join(' ')}`
+      `HOMEBREW_NO_AUTO_UPDATE=1 brew install ${installArguments.join(' ')}`,
     );
     this.systemCommands.push(`brew test ${this.formula.name}`);
   }
@@ -61,7 +61,7 @@ class Bottle {
     }--${this.formula.Version()}.x86_64_linux.bottle.tar.gz`;
 
     this.systemCommands.push(
-      `mv ${bottleFile} ${bottleFile.replace('--', '-')}`
+      `mv ${bottleFile} ${bottleFile.replace('--', '-')}`,
     );
   }
 
@@ -87,7 +87,7 @@ class Cli {
 
   private Parse(): void {
     const argv = yargs
-      .command('$0 <path>', 'Bottle a formula', yargs => {
+      .command('$0 <path>', 'Bottle a formula', (yargs) => {
         yargs.positional('path', {
           describe: 'Path of the formula and bottle',
           type: 'string',
