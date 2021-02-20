@@ -1,5 +1,5 @@
 name: Bottle formulae
-on: push
+on: workflow_dispatch
 
 jobs:
   bottle:
