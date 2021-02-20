@@ -1,8 +1,8 @@
 class CmakeAT3132 < Formula
   desc "Cross-platform make"
   homepage "https://www.cmake.org/"
-  url "https://github.com/Kitware/CMake/releases/download/v3.13.2/cmake-3.13.2.tar.gz"
-  sha256 "c925e7d2c5ba511a69f43543ed7b4182a7d446c274c7480d0e42cd933076ae25"
+  url "https://github.com/Kitware/CMake/releases/download/v3.19.5/CMake-3.19.5.tar.gz"
+  sha256 "c432296eb5dec6d71eae15d140f6297d63df44e9ffe3e453628d1dc8fc4201ce"
   head "https://cmake.org/cmake.git"
   version "0.1.0"
 
